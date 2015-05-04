@@ -1,0 +1,64 @@
+#%RAML 0.8
+---
+title: Sample API
+version: v1.0
+baseUri: http://localhost:9000
+mediaType: application/json
+
+/Employee: 
+  description: Employee 
+  post: 
+    description: Post The EmpId
+    queryParameters: 
+      EmpId:
+        description: Enter the Employee Id
+        displayName: EmpId
+        enum: ["4","192"]
+        required: true
+    body: 
+      text/xml:
+        example: |
+          {
+            
+                <List>
+                  <employee>
+                      <EmployeeId>4</EmployeeId>
+                      <ReportsTo>1</ReportsTo>
+                      <Name>Charles Madigen</Name>                
+                      <Job>Chief Operating Officer</Job>
+                      <Phone>x10962</Phone>
+                      <Email>cmadigan@server.com</Email>
+                      <OrgUnit>Management</OrgUnit>
+                      <Salary>26200.00</Salary>
+                      <Gender>male</Gender>
+                      <MaritalStatus>married</MaritalStatus>
+                      <EmployeeType>full time</EmployeeType>
+                      <EmployeeStatus>active</EmployeeStatus>
+                    </employee>
+                  </List>
+            
+          }
+    responses: 
+      200: 
+        body: 
+          text/xml:
+            example: |
+              {
+
+                <List>
+                  <employee>
+                    <EmployeeId>4</EmployeeId>
+                    <ReportsTo>1</ReportsTo>
+                    <Name>Charles Madigen</Name>                
+                    <Job>Chief Operating Officer</Job>
+                    <Phone>x10962</Phone>
+                    <Email>cmadigan@server.com</Email>
+                    <OrgUnit>Management</OrgUnit>
+                    <Salary>26200.00</Salary>
+                    <Gender>male</Gender>
+                    <MaritalStatus>married</MaritalStatus>
+                    <EmployeeType>full time</EmployeeType>
+                    <EmployeeStatus>active</EmployeeStatus>
+                  </employee>
+                  </List>
+              }
