@@ -44,18 +44,17 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
     </apikit:mapping-exception-strategy>
     <flow name="main">
         <http:listener config-ref="HTTP_Listener_Configuration" doc:name="HTTP" path="/api/*" parseRequest="false" />
-        <message-properties-transformer doc:name="Message Properties">
-            <add-message-property key="Content-Type" value="text/xml" />
-        </message-properties-transformer>
+
         <apikit:router config-ref="apiConfig" doc:name="APIkit Router" />
         <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy" />
     </flow>
     <flow name="post:/Employee:apiConfig">
+        <message-properties-transformer doc:name="Message Properties">
+            <add-message-property key="Content-Type" value="text/xml"/>
+        </message-properties-transformer>
         <mulexml:xml-to-dom-transformer doc:name="XML to DOM"/>
         <set-variable variableName="EmpId" value="#[message.inboundProperties.'http.query.params'.EmpId]" doc:name="Variable" />
         <set-payload value="#[xpath3('/List/employee[EmployeeId=$EmpId]',payload,'NODE')]" doc:name="Set Payload"/>
-
-        <logger message="#[message.payload]" level="INFO" doc:name="Logger" />
 
     </flow>
 
