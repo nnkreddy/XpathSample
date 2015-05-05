@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="employee" type="employeeType"/>
+  <xs:complexType name="employeeType">
+    <xs:sequence>
+      <xs:element type="xs:byte" name="EmployeeId"/>
+      <xs:element type="xs:byte" name="ReportsTo"/>
+      <xs:element type="xs:string" name="Name"/>
+      <xs:element type="xs:string" name="Job"/>
+      <xs:element type="xs:string" name="Phone"/>
+      <xs:element type="xs:string" name="Email"/>
+      <xs:element type="xs:string" name="OrgUnit"/>
+      <xs:element type="xs:float" name="Salary"/>
+      <xs:element type="xs:string" name="Gender"/>
+      <xs:element type="xs:string" name="MaritalStatus"/>
+      <xs:element type="xs:string" name="EmployeeType"/>
+      <xs:element type="xs:string" name="EmployeeStatus"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

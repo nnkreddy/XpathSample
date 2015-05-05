@@ -20,4 +20,11 @@
 		<nature>org.mule.tooling.core.muleNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>Employee Upd.xml</name>
+			<type>1</type>
+			<location>C:/Users/861322/Desktop/Temp/Employee Upd.xml</location>
+		</link>
+	</linkedResources>
 </projectDescription>

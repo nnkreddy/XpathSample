@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="List" type="ListType"/>
+  <xs:complexType name="employeeType">
+    <xs:sequence>
+      <xs:element name="EmployeeId">
+        <xs:simpleType>
+          <xs:restriction base="xs:short">
+            <xs:enumeration value="4"/>
+            <xs:enumeration value="192"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="ReportsTo">
+        <xs:simpleType>
+          <xs:restriction base="xs:byte">
+            <xs:enumeration value="1"/>
+            <xs:enumeration value="4"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Name">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Charles Madigen"/>
+            <xs:enumeration value="Ralph Brogan"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Job">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="Chief Operating Officer"/>
+            <xs:enumeration value="Mgr Software Client Supp"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Phone">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="x10962"/>
+            <xs:enumeration value="x32524"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element name="Email">
+        <xs:simpleType>
+          <xs:restriction base="xs:string">
+            <xs:enumeration value="cmadigan@server.com"/>
+            <xs:enumeration value="rbrogan@server.com"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="OrgUnit"/>
+      <xs:element name="Salary">
+        <xs:simpleType>
+          <xs:restriction base="xs:float">
+            <xs:enumeration value="26200.00"/>
+            <xs:enumeration value="13700.00"/>
+          </xs:restriction>
+        </xs:simpleType>
+      </xs:element>
+      <xs:element type="xs:string" name="Gender"/>
+      <xs:element type="xs:string" name="MaritalStatus"/>
+      <xs:element type="xs:string" name="EmployeeType"/>
+      <xs:element type="xs:string" name="EmployeeStatus"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ListType">
+    <xs:sequence>
+      <xs:element type="employeeType" name="employee" maxOccurs="unbounded" minOccurs="0"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
