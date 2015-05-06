@@ -11,10 +11,12 @@ http://www.mulesoft.org/schema/mule/file http://www.mulesoft.org/schema/mule/fil
 http://www.mulesoft.org/schema/mule/vm http://www.mulesoft.org/schema/mule/vm/current/mule-vm.xsd
 http://www.mulesoft.org/schema/mule/ee/data-mapper http://www.mulesoft.org/schema/mule/ee/data-mapper/current/mule-data-mapper.xsd
 http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd">
-    <mulexml:namespace-manager includeConfigNamespaces="false" />
+    <!-- <mulexml:namespace-manager includeConfigNamespaces="false" /> -->
     <context:property-placeholder location="api.properties" />
     <apikit:config name="apiConfig" raml="api.raml" consoleEnabled="true" consolePath="console" doc:name="Router" />
-    <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="${http.port}" doc:name="HTTP Listener Configuration" />
+    <http:listener-config name="HTTP_Listener_Configuration" host="localhost" port="8081" doc:name="HTTP Listener Configuration"/>
+    <vm:connector name="VM" validateConnections="true" doc:name="VM"/>
+
     <apikit:mapping-exception-strategy name="apiKitGlobalExceptionMapping">
         <apikit:mapping statusCode="404">
             <apikit:exception value="org.mule.module.apikit.exception.NotFoundException" />
@@ -43,7 +45,9 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
         </apikit:mapping>
     </apikit:mapping-exception-strategy>
     <flow name="main">
-        <http:listener config-ref="HTTP_Listener_Configuration" doc:name="HTTP" path="/api/*" parseRequest="false" />
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/api/*" doc:name="HTTP"/>
+        
+        
 
         <apikit:router config-ref="apiConfig" doc:name="APIkit Router" />
         <exception-strategy ref="apiKitGlobalExceptionMapping" doc:name="Reference Exception Strategy" />
@@ -52,9 +56,12 @@ http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/ba
         <message-properties-transformer doc:name="Message Properties">
             <add-message-property key="Content-Type" value="text/xml"/>
         </message-properties-transformer>
-        <mulexml:xml-to-dom-transformer doc:name="XML to DOM"/>
-        <set-variable variableName="EmpId" value="#[message.inboundProperties.'http.query.params'.EmpId]" doc:name="Variable" />
-        <set-payload value="#[xpath3('/List/employee[EmployeeId=$EmpId]',payload,'NODE')]" doc:name="Set Payload"/>
+        <byte-array-to-string-transformer doc:name="Byte Array to String"/>
+        <set-property propertyName="EmpId" value="#[message.inboundProperties.'http.query.params'.EmpId]" doc:name="Property"/>
+        <vm:outbound-endpoint connector-ref="VM"  doc:name="VM" exchange-pattern="request-response" path="/vmQ"/>
+        <mulexml:dom-to-xml-transformer doc:name="DOM to XML"/>
+        <logger message="#[message.payload]" level="INFO" doc:name="Logger"/>
+        <object-to-byte-array-transformer doc:name="Object to Byte Array"/>
 
     </flow>
 

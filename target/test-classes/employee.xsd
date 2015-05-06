@@ -3,7 +3,7 @@
   <xs:element name="employee" type="employeeType"/>
   <xs:complexType name="employeeType">
     <xs:sequence>
-      <xs:element type="xs:byte" name="EmployeeId"/>
+      <xs:element type="xs:short" name="EmployeeId"/>
       <xs:element type="xs:byte" name="ReportsTo"/>
       <xs:element type="xs:string" name="Name"/>
       <xs:element type="xs:string" name="Job"/>
